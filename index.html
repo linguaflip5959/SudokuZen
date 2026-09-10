@@ -46,6 +46,7 @@
         <button class="tool" id="btnErase"><span class="ico">⌫</span>Стереть</button>
         <button class="tool" id="btnUndo"><span class="ico">↺</span>Отмена</button>
         <button class="tool" id="btnHint"><span class="ico">✦</span>Подсказка<span class="badge" id="hintBadge">3</span></button>
+        <button class="tool" id="btnSolo"><span class="ico">独</span>Одиночки</button>
         <button class="tool" id="btnSave"><span class="ico">書</span>Сберечь</button>
       </div>
   </div>
@@ -62,15 +63,19 @@
       <div class="stat"><span class="stat-label">ошибки</span><b id="mMist">0</b></div>
       <div class="stat"><span class="stat-label">сложность</span><b id="mDiff">Средняя</b></div>
     </div>
+    <button class="btn btn-primary gone" id="btnContinue">Продолжить · +2 жизни</button>
     <button class="btn btn-primary" id="btnAgain">Новая игра</button>
     <button class="btn btn-ghost" id="btnClose">остаться созерцать</button>
   </div>
 </div>
 
 <!-- Порядок подключения важен: game → interface → effects → main -->
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 <script src="js/game.js"></script>
 <script src="js/interface.js"></script>
 <script src="js/effects.js"></script>
+<script src="js/generator.js"></script>
+<script src="js/platform.js"></script>
 <script src="js/save.js"></script>
 <script src="js/main.js"></script>
 </body>

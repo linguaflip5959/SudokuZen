@@ -7,6 +7,7 @@ function saveGame(){
   try{
     const data={
       v:1, diff:diff, sec:seconds, mistakes:mistakes, hints:hintsLeft,
+      cont:usedContinue?1:0, solo:usedSolo?1:0,
       board:boardVals, given:givenArr.map(v=>v?1:0), sol:solution,
       notes:notesArr.map(s=>Array.from(s)),
       undo:undoStack.slice(-50).map(st=>({b:st.b, n:st.n.map(x=>Array.from(x))}))
@@ -48,13 +49,16 @@ function resumeGame(){
   undoStack=d.undo.map(st=>({b:st.b.slice(), n:st.n.map(x=>new Set(x))}));
   mistakes=d.mistakes||0;
   hintsLeft=(typeof d.hints==='number')?d.hints:m.hints;
+  usedContinue=!!d.cont; 
+  usedSolo=!!d.solo;
   selected=-1; noteMode=false;
   document.getElementById('btnNotes').classList.remove('active');
-  document.getElementById('btnHint').style.opacity = hintsLeft>0?1:.45;
-  hintBadge.textContent=hintsLeft;
+  hintBadge.textContent = hintsLeft>0 ? hintsLeft : '+3';
+  document.getElementById('btnSolo').style.opacity = usedSolo ? '.45' : '1';
   updateMistakes(); updateNumpad(); render();
   startTimer(d.sec||0);
   playing=true;
+  precache({diff:diff, N:N, BW:BW, BH:BH, holes:MODES[diff].holes});
   return true;
 }
 

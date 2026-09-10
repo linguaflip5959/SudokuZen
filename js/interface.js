@@ -123,12 +123,15 @@ function startTimer(s){
 }
 
 /* ================= управление ================= */
-document.querySelectorAll(".diff").forEach((b) =>
-  b.addEventListener("click", () => {
-    buzz(10);
-    newGame(b.dataset.diff);
-  }),
-);
+document.querySelectorAll('.diff').forEach(b=>b.addEventListener('click',function(){
+  buzz(10);
+  const d=this.dataset.diff;
+  if(d==='hard'&&!isHardUnlockedToday()){
+    rewardAd(function(){ unlockHard(); newGame('hard'); });
+    return;
+  }
+  newGame(d);
+}));
 document.getElementById("btnNotes").addEventListener("click", function () {
   noteMode = !noteMode;
   this.classList.toggle("active", noteMode);
@@ -182,3 +185,34 @@ boardEl.addEventListener(
   },
   { passive: false },
 );
+
+/* замок на Сложной */
+function updateHardLock(){
+  const btn=document.querySelector('.diff[data-diff="hard"]');
+  if(!btn) return;
+  const locked=!isHardUnlockedToday();
+  btn.classList.toggle('locked', locked);
+  btn.textContent = locked ? 'Сложная 🔒' : 'Сложная · 12×12';
+}
+/* Одиночки и Продолжить — за просмотр */
+document.getElementById('btnSolo').addEventListener('click',function(){
+  if(!playing||usedSolo) return;
+  /* сухой прогон: не показываем рекламу, если вписывать нечего */
+  let cnt=0;
+  for(let i=0;i<TOTAL;i++){
+    if(givenArr[i]||boardVals[i]!==0) continue;
+    const ps=peersOf(i);
+    let c=0,last=0;
+    for(let v=1;v<=N;v++){
+      let ok=true;
+      for(let q=0;q<ps.length;q++){ if(boardVals[ps[q]]===v){ ok=false; break; } }
+      if(ok){ c++; last=v; }
+    }
+    if(c===1&&last===solution[i]) cnt++;
+  }
+  if(cnt===0){ flashInfo('Сад безмолвствует — одиночек нет'); return; }
+  rewardAd(solitude);
+});
+document.getElementById('btnContinue').addEventListener('click',function(){
+  rewardAd(continueGame);
+});

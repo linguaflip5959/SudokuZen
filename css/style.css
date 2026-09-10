@@ -13,7 +13,7 @@ body{
 }
 body::before{
   content:''; position:fixed; inset:0; z-index:0;
-  background:url('/img/bg_one.png') center 30%/cover no-repeat;
+  background:url('/img/bg_one.jpg?v=1') center 30%/cover no-repeat;
 }
 body::after{
   content:''; position:fixed; inset:0; z-index:1; pointer-events:none;
@@ -118,7 +118,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 
 /* ---------- нижняя панель ---------- */
 .controls{flex:none;display:flex;flex-direction:column;gap:9px;}
-.tools{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+.tools{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;}
 .tool{
   position:relative;padding:9px 2px;border-radius:14px;border:1px solid var(--line);
   background:rgba(251,246,236,.93);color:var(--ink);font-family:inherit;font-size:11px;
@@ -216,3 +216,20 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 /* ---------- сейвы: пятая кнопка ---------- */
 #btnSave .ico{font-family:'Zen Old Mincho',serif;}
 @media (max-width:340px){ .tool{font-size:10px;} }
+
+/* ---------- M3: реклама, замок, Одиночки, Продолжить ---------- */
+.gone{display:none!important;}
+#btnSolo .ico{font-family:'Zen Old Mincho',serif;}
+.diff.locked{opacity:.8;}
+#btnContinue{margin-top:0;}
+#btnContinue:not(.gone) + #btnAgain{margin-top:8px;}
+
+#btnContinue:not(.gone) + #btnAgain{
+  background:var(--card);color:var(--ink);
+  border:1px solid var(--line);box-shadow:none;
+}
+
+/* телефон: показываем правую часть фона */
+@media (max-width:700px){
+  body::before{ background-position:right 30%; }
+}
