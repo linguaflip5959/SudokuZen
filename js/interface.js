@@ -112,14 +112,14 @@ function fmtTime(s) {
     ss = ("0" + (s % 60)).slice(-2);
   return m + ":" + ss;
 }
-function startTimer() {
-  if (timerId) clearInterval(timerId);
-  seconds = 0;
-  timerEl.textContent = "00:00";
-  timerId = setInterval(() => {
-    seconds++;
-    timerEl.textContent = fmtTime(seconds);
-  }, 1000);
+
+function startTimer(s){
+  if(timerId) clearInterval(timerId);
+  seconds=s||0; timerEl.textContent=fmtTime(seconds);
+  timerId=setInterval(()=>{
+    seconds++; timerEl.textContent=fmtTime(seconds);
+    if(seconds%15===0) saveGame();
+  },1000);
 }
 
 /* ================= управление ================= */

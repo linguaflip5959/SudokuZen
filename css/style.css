@@ -87,7 +87,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
   border:2px solid var(--ink);border-radius:6px;overflow:hidden;background:#fdf9ef;
   transition:opacity .3s;
 }
-@media (min-width:520px){ .board{--cell:min(9.6vw,40px);} }
+@media (min-width:520px){ .board{--cell:min(9.6vw,40px,calc((100dvh - 300px)/9));} }
 .cell{
   display:grid;place-items:center;cursor:pointer;user-select:none;
   border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
@@ -118,7 +118,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 
 /* ---------- нижняя панель ---------- */
 .controls{flex:none;display:flex;flex-direction:column;gap:9px;}
-.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.tools{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
 .tool{
   position:relative;padding:9px 2px;border-radius:14px;border:1px solid var(--line);
   background:rgba(251,246,236,.93);color:var(--ink);font-family:inherit;font-size:11px;
@@ -198,7 +198,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .board12 .cell[data-r="11"]{border-bottom:none;}
 /* панель 1–12: два ряда по шесть */
 .numpad.p12{grid-template-columns:repeat(6,1fr);}
-.numpad.p12 .num{font-size:min(5.5vw,24px);}
+.numpad.p12 .num{aspect-ratio:auto;height:56px;font-size:min(5.5vw,24px);}
 /* семь кружков жизней не раздувают шапку */
 #mistakes.long{font-size:11px;letter-spacing:.05em;}
 
@@ -212,3 +212,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .notes i:nth-child(2){top:2px;right:2px;}
 .notes i:nth-child(3){bottom:2px;left:2px;}
 .notes i:nth-child(4){bottom:2px;right:2px;}
+
+/* ---------- сейвы: пятая кнопка ---------- */
+#btnSave .ico{font-family:'Zen Old Mincho',serif;}
+@media (max-width:340px){ .tool{font-size:10px;} }

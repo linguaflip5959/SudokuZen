@@ -147,98 +147,68 @@ function clearPeerNotes(idx, n) {
   peersOf(idx).forEach((p) => notesArr[p].delete(n));
 }
 
-function inputNumber(n) {
-  if (!playing || selected < 0) return;
-  const idx = selected;
-  if (givenArr[idx]) return;
-  if (noteMode) {
-    if (boardVals[idx] !== 0) return;
-    if (!notesArr[idx].has(n) && notesArr[idx].size >= 4) {
-      buzz(20);
-      return;
-    }
-    pushUndo();
-    buzz(8);
-    if (notesArr[idx].has(n)) notesArr[idx].delete(n);
-    else notesArr[idx].add(n);
-    render();
-    return;
+function inputNumber(n){
+  if(!playing||selected<0) return;
+  const idx=selected;
+  if(givenArr[idx]) return;
+  if(noteMode){
+    if(boardVals[idx]!==0) return;
+    if(!notesArr[idx].has(n) && notesArr[idx].size>=4){ buzz(20); return; }
+    pushUndo(); buzz(8);
+    if(notesArr[idx].has(n)) notesArr[idx].delete(n); else notesArr[idx].add(n);
+    render(); saveGame(); return;
   }
   pushUndo();
-  boardVals[idx] = n;
-  notesArr[idx].clear();
-  cellEls[idx].dataset.pop = "1";
-  if (n === solution[idx]) {
-    clearPeerNotes(idx, n);
-    buzz(12);
-  } else {
-    mistakes++;
-    updateMistakes();
-    buzz([30, 40, 30]);
-    if (mistakes >= lives) {
-      render();
-      updateNumpad();
-      endGame(false);
-      return;
-    }
+  boardVals[idx]=n; notesArr[idx].clear();
+  cellEls[idx].dataset.pop='1';
+  if(n===solution[idx]){ clearPeerNotes(idx,n); buzz(12); }
+  else{
+    mistakes++; updateMistakes(); buzz([30,40,30]);
+    if(mistakes>=lives){ render(); updateNumpad(); endGame(false); return; }
   }
-  render();
-  updateNumpad();
-  checkWin();
+  render(); updateNumpad(); saveGame(); checkWin();
 }
 
-function eraseCell() {
-  if (!playing || selected < 0 || givenArr[selected]) return;
-  if (boardVals[selected] === 0 && notesArr[selected].size === 0) return;
-  pushUndo();
-  buzz(8);
-  boardVals[selected] = 0;
-  notesArr[selected].clear();
-  render();
-  updateNumpad();
+function eraseCell(){
+  if(!playing||selected<0||givenArr[selected]) return;
+  if(boardVals[selected]===0 && notesArr[selected].size===0) return;
+  pushUndo(); buzz(8);
+  boardVals[selected]=0; notesArr[selected].clear();
+  render(); updateNumpad(); saveGame();
 }
-function undoMove() {
-  if (!playing || undoStack.length === 0) return;
-  const st = undoStack.pop();
-  boardVals = st.b;
-  notesArr = st.n;
-  buzz(8);
-  render();
-  updateNumpad();
+
+function undoMove(){
+  if(!playing||undoStack.length===0) return;
+  const st=undoStack.pop();
+  boardVals=st.b; notesArr=st.n;
+  buzz(8); render(); updateNumpad(); saveGame();
 }
-function useHint() {
-  if (!playing || hintsLeft <= 0) return;
-  let idx = -1;
-  if (
-    selected >= 0 &&
-    !givenArr[selected] &&
-    boardVals[selected] !== solution[selected]
-  )
-    idx = selected;
-  else idx = boardVals.findIndex((v, i) => v !== solution[i]);
-  if (idx < 0) return;
-  pushUndo();
-  buzz(15);
-  hintsLeft--;
-  hintBadge.textContent = hintsLeft;
-  if (hintsLeft === 0) document.getElementById("btnHint").style.opacity = 0.45;
-  boardVals[idx] = solution[idx];
-  notesArr[idx].clear();
+
+function useHint(){
+  if(!playing||hintsLeft<=0) return;
+  let idx=-1;
+  if(selected>=0 && !givenArr[selected] && boardVals[selected]!==solution[selected]) idx=selected;
+  else idx=boardVals.findIndex((v,i)=>v!==solution[i]);
+  if(idx<0) return;
+  pushUndo(); buzz(15);
+  hintsLeft--; hintBadge.textContent=hintsLeft;
+  if(hintsLeft===0) document.getElementById('btnHint').style.opacity=.45;
+  boardVals[idx]=solution[idx]; notesArr[idx].clear();
   clearPeerNotes(idx, solution[idx]);
-  selected = idx;
-  cellEls[idx].dataset.pop = "1";
-  render();
-  updateNumpad();
-  checkWin();
+  selected=idx; cellEls[idx].dataset.pop='1';
+  render(); updateNumpad(); saveGame(); checkWin();
 }
+
 function checkWin() {
   for (let i = 0; i < TOTAL; i++) {
     if (boardVals[i] !== solution[i]) return;
   }
   endGame(true);
 }
+
 function endGame(win) {
   playing = false;
+  clearSave();
   if (timerId) clearInterval(timerId);
   if (win) buzz([20, 60, 20, 60, 40]);
   else buzz([80, 60, 80]);
@@ -256,40 +226,26 @@ function endGame(win) {
 }
 
 /* ================= новая игра ================= */
-function newGame(d) {
-  diff = d;
-  const m = MODES[d];
-  N = m.N;
-  BW = m.BW;
-  BH = m.BH;
-  TOTAL = N * N;
-  lives = m.lives;
-  document
-    .querySelectorAll(".diff")
-    .forEach((b) => b.classList.toggle("active", b.dataset.diff === d));
-  boardWrap.classList.add("loading");
-  modalEl.classList.add("hidden");
-  buildBoard();
-  buildNumpad();
-  setTimeout(() => {
-    const res = makePuzzle(m.holes);
-    solution = res.sol;
-    givenArr = res.puz.map((v) => v !== 0);
-    boardVals = res.puz.slice();
-    notesArr = Array.from({ length: TOTAL }, () => new Set());
-    selected = -1;
-    noteMode = false;
-    mistakes = 0;
-    hintsLeft = m.hints;
-    undoStack = [];
-    document.getElementById("btnNotes").classList.remove("active");
-    document.getElementById("btnHint").style.opacity = 1;
-    hintBadge.textContent = m.hints;
-    updateMistakes();
-    updateNumpad();
-    render();
-    startTimer();
-    playing = true;
-    boardWrap.classList.remove("loading");
-  }, 60);
+function newGame(d){
+  diff=d;
+  const m=MODES[d];
+  N=m.N; BW=m.BW; BH=m.BH; TOTAL=N*N; lives=m.lives;
+  document.querySelectorAll('.diff').forEach(b=>b.classList.toggle('active', b.dataset.diff===d));
+  boardWrap.classList.add('loading');
+  modalEl.classList.add('hidden');
+  buildBoard(); buildNumpad();
+  setTimeout(()=>{
+    const res=makePuzzle(m.holes);
+    solution=res.sol;
+    givenArr=res.puz.map(v=>v!==0);
+    boardVals=res.puz.slice();
+    notesArr=Array.from({length:TOTAL},()=>new Set());
+    selected=-1; noteMode=false; mistakes=0; hintsLeft=m.hints; undoStack=[];
+    document.getElementById('btnNotes').classList.remove('active');
+    document.getElementById('btnHint').style.opacity=1;
+    hintBadge.textContent=m.hints;
+    updateMistakes(); updateNumpad(); render();
+    startTimer(); playing=true; saveGame();
+    boardWrap.classList.remove('loading');
+  },60);
 }
