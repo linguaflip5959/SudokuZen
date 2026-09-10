@@ -1,6 +1,6 @@
 /* platform.js — VK Bridge, rewarded-реклама, дневной анлок Сложной, Worker с прегеном */
 
-const DEBUG_REWARD=true; /* ⚠️ true = реклама «успешна» мгновенно. ТОЛЬКО для локальной проверки, перед публикацией вернуть false! */
+const DEBUG_REWARD=false; /* ⚠️ true = реклама «успешна» мгновенно. ТОЛЬКО для локальной проверки, перед публикацией вернуть false! */
 
 /* ---------- VK Bridge ---------- */
 function initPlatform(){
@@ -70,3 +70,11 @@ function flashInfo(text){
     setTimeout(function(){ quoteEl.textContent=QUOTES[quoteIdx]; quoteEl.classList.remove('fade'); },600);
   },3400);
 }
+
+/* ландшафт-замок: активен только когда есть живая партия */
+function updateRotateLock(){
+  const el=document.getElementById('rotate-lock');
+  if(!el) return;
+  el.classList.toggle('active', playing);
+}
+setInterval(updateRotateLock, 1000);

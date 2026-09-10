@@ -118,8 +118,11 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 
 /* ---------- нижняя панель ---------- */
 .controls{flex:none;display:flex;flex-direction:column;gap:9px;}
-.tools{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;}
-.tool{
+.tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+@media (min-width:481px) and (min-height:641px){
+  .tools{grid-template-columns:repeat(6,1fr);}
+}
+.tools .tool{
   position:relative;padding:9px 2px;border-radius:14px;border:1px solid var(--line);
   background:rgba(251,246,236,.93);color:var(--ink);font-family:inherit;font-size:11px;
   cursor:pointer;transition:.12s;display:flex;flex-direction:column;align-items:center;gap:2px;
@@ -236,3 +239,11 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 
 /* ▶ = награда за просмотр, в цвет бейджа подсказок */
 .vk-ico{color:var(--amber);font-size:11px;}
+
+/* ---------- ландшафт: врата закрыты ---------- */
+#rotate-lock{position:fixed;inset:0;z-index:99;display:none;flex-direction:column;gap:16px;align-items:center;justify-content:center;text-align:center;padding:24px;background:rgba(231,220,198,.97);}
+#rotate-lock .seal-big{animation:breathe 1.6s ease-in-out infinite;}
+#rotate-lock p{font-size:14px;font-style:italic;color:var(--ink-soft);max-width:320px;line-height:1.6;}
+@media (orientation:landscape) and (max-height:500px){
+  #rotate-lock.active{display:flex;}
+}

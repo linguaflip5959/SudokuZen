@@ -194,6 +194,7 @@ function updateHardLock(){
   btn.classList.toggle('locked', locked);
   btn.innerHTML = locked ? 'Сложная <span class="vk-ico">▶</span>' : 'Сложная · 12×12';
 }
+
 /* Одиночки и Продолжить — за просмотр */
 document.getElementById('btnSolo').addEventListener('click',function(){
   if(!playing||usedSolo) return;
