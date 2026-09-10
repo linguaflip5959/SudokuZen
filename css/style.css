@@ -13,7 +13,7 @@ body{
 }
 body::before{
   content:''; position:fixed; inset:0; z-index:0;
-  background:url('/img/bg_one.jpg?v=1') center 30%/cover no-repeat;
+  background:url('../img/bg_one.jpg') center 30%/cover no-repeat;
 }
 body::after{
   content:''; position:fixed; inset:0; z-index:1; pointer-events:none;
@@ -233,3 +233,6 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 @media (max-width:700px){
   body::before{ background-position:right 30%; }
 }
+
+/* ▶ = награда за просмотр, в цвет бейджа подсказок */
+.vk-ico{color:var(--amber);font-size:11px;}

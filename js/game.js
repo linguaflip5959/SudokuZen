@@ -73,7 +73,7 @@ function useHint(){
   if(idx<0) return;
   pushUndo(); buzz(15);
   hintsLeft--; hintBadge.textContent=hintsLeft;
-  if(hintsLeft===0) hintBadge.textContent='+3';
+  if(hintsLeft===0) hintBadge.textContent='+3 ▶';
   boardVals[idx]=solution[idx]; notesArr[idx].clear();
   clearPeerNotes(idx, solution[idx]);
   selected=idx; cellEls[idx].dataset.pop='1';

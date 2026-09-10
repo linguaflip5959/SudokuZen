@@ -192,7 +192,7 @@ function updateHardLock(){
   if(!btn) return;
   const locked=!isHardUnlockedToday();
   btn.classList.toggle('locked', locked);
-  btn.textContent = locked ? 'Сложная 🔒' : 'Сложная · 12×12';
+  btn.innerHTML = locked ? 'Сложная <span class="vk-ico">▶</span>' : 'Сложная · 12×12';
 }
 /* Одиночки и Продолжить — за просмотр */
 document.getElementById('btnSolo').addEventListener('click',function(){

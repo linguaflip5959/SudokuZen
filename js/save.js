@@ -53,7 +53,7 @@ function resumeGame(){
   usedSolo=!!d.solo;
   selected=-1; noteMode=false;
   document.getElementById('btnNotes').classList.remove('active');
-  hintBadge.textContent = hintsLeft>0 ? hintsLeft : '+3';
+  hintBadge.textContent = hintsLeft>0 ? hintsLeft : '+3 ▶'
   document.getElementById('btnSolo').style.opacity = usedSolo ? '.45' : '1';
   updateMistakes(); updateNumpad(); render();
   startTimer(d.sec||0);
