@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Судоку · Дзэн</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif@5/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zen-old-mincho@5/400.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="petals"></div>
+
+<div class="app">
+  <header>
+    <div class="seal">禅</div>
+    <div class="logo-txt">
+      <h1>Судоку · Дзэн</h1>
+      <p>lo-fi · вк игры</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="stat-label">время</span><b id="timer">00:00</b></div>
+      <div class="stat"><span class="stat-label">ошибки</span><b id="mistakes">○○○</b></div>
+    </div>
+  </header>
+
+  <div class="diff-row">
+    <button class="diff" data-diff="easy">Лёгкая</button>
+    <button class="diff active" data-diff="medium">Средняя</button>
+    <button class="diff" data-diff="hard">Сложная · 12×12</button>
+  </div>
+
+  <div class="board-zone">
+    <div class="board-wrap" id="boardWrap">
+      <div class="board" id="board"></div>
+      <div class="loader"><span>раскладываем камни…</span></div>
+    </div>
+    <div class="numpad" id="numpad"></div>
+  </div>
+
+  <div class="controls">
+    <div class="quote" id="quote"></div>
+    <div class="tools">
+      <button class="tool" id="btnNotes"><span class="ico">✎</span>Заметки</button>
+      <button class="tool" id="btnErase"><span class="ico">⌫</span>Стереть</button>
+      <button class="tool" id="btnUndo"><span class="ico">↺</span>Шаг назад</button>
+      <button class="tool" id="btnHint"><span class="ico">✦</span>Подсказка<span class="badge" id="hintBadge">3</span></button>
+    </div>  
+  </div>
+</div>
+
+<div class="modal hidden" id="modal">
+  <div class="modal-card">
+    <div class="sheet-grip"></div>
+    <div class="seal-big" id="modalSeal">完</div>
+    <h2 id="modalTitle">Гармония достигнута</h2>
+    <p class="sub" id="modalSub">Сад камней сложился целиком.</p>
+    <div class="mstats">
+      <div class="stat"><span class="stat-label">время</span><b id="mTime">00:00</b></div>
+      <div class="stat"><span class="stat-label">ошибки</span><b id="mMist">0</b></div>
+      <div class="stat"><span class="stat-label">сложность</span><b id="mDiff">Средняя</b></div>
+    </div>
+    <button class="btn btn-primary" id="btnAgain">Новая игра</button>
+    <button class="btn btn-ghost" id="btnClose">остаться созерцать</button>
+  </div>
+</div>
+
+<!-- Порядок подключения важен: game → interface → effects → main -->
+<script src="js/game.js"></script>
+<script src="js/interface.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
