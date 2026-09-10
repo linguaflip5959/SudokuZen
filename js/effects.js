@@ -1,12 +1,6 @@
 /* effects.js — эффекты: вибрация, цитаты, лепестки */
 
-function buzz(ms) {
-  if (navigator.vibrate) {
-    try {
-      navigator.vibrate(ms);
-    } catch (err) {}
-  }
-}
+function buzz(ms){ if(navigator.vibrate){ try{ if(typeof ms==='number'&&ms<25)ms=25; navigator.vibrate(ms); }catch(err){} } }
 
 /* ================= атмосфера ================= */
 const QUOTES = [
