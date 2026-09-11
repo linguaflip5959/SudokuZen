@@ -99,7 +99,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .cell[data-r="2"],.cell[data-r="5"]{border-bottom:2px solid var(--ink);}
 .cell.peer{background:rgba(64,56,46,.055);}
 .cell.same{background:rgba(201,141,79,.22);}
-.cell.sel{background:rgba(217,154,154,.34);box-shadow:inset 0 0 0 2px var(--sakura);}
+.cell.sel{background:rgba(125,143,111,.34);box-shadow:inset 0 0 0 2px var(--sage);}
 .cell.error{background:rgba(179,84,63,.14);}
 .val{font-size:calc(var(--cell)*.5);font-weight:600;line-height:1;color:var(--moss);}
 .cell.given .val{color:var(--ink);}
