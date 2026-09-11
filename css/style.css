@@ -119,7 +119,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 /* ---------- нижняя панель ---------- */
 .controls{flex:none;display:flex;flex-direction:column;gap:9px;}
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-@media (min-width:481px) and (min-height:641px){
+@media (min-width:481px){
   .tools{grid-template-columns:repeat(6,1fr);}
 }
 .tools .tool{
