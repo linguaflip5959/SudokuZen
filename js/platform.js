@@ -12,7 +12,7 @@ function initPlatform(){
 /* ---------- rewarded-реклама ---------- */
 function rewardAd(onSuccess){
   if(DEBUG_REWARD){ onSuccess(); return; }
-  if(typeof vkBridge==='undefined'){ flashInfo('Сад спит — попробуйте позже'); return; }
+  if(typeof vkBridge==='undefined'){ onSuccess(); return; } /* чистый браузер вне ВК: демо без рекламы */
   vkBridge.send('VKWebAppShowNativeAds', {ad_format:'reward'})
     .then(function(){ onSuccess(); })
     .catch(function(){ flashInfo('Сад спит — попробуйте позже'); });
