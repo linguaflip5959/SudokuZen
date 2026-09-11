@@ -203,7 +203,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .board12 .cell[data-r="11"]{border-bottom:none;}
 /* панель 1–12: два ряда по шесть */
 .numpad.p12{grid-template-columns:repeat(6,1fr);}
-.numpad.p12 .num{aspect-ratio:auto;height:48px;font-size:min(5.5vw,24px);}
+.numpad.p12 .num{aspect-ratio:auto;height:40px;font-size:min(5.5vw,24px);}
 /* семь кружков жизней не раздувают шапку */
 #mistakes.long{font-size:11px;letter-spacing:.05em;}
 
