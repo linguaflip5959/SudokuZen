@@ -1,0 +1,9 @@
+:root{--paper:#f6efe3;--ink:#40382e;--soft:#7a6f5e;--line:#e2d7c0;--rust:#b3543f;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Serif',Georgia,serif;color:var(--ink);background:var(--paper);padding:28px 18px 60px;}
+.doc{max-width:620px;margin:0 auto;}
+.doc h1{font-size:21px;letter-spacing:.04em;margin-bottom:14px;}
+.doc h2{font-size:15px;margin:18px 0 6px;}
+.doc p{font-size:13.5px;line-height:1.75;}
+.doc .back{display:block;margin-top:26px;font-size:12.5px;color:var(--soft);font-style:italic;}
+.doc .date{margin-top:22px;font-size:11.5px;color:var(--soft);}

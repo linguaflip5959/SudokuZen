@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Судоку · Дзэн</title>
+<link rel="icon" href="img/favicon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif@5/600.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/zen-old-mincho@5/400.css">
@@ -11,6 +12,21 @@
 </head>
 <body>
 <div id="petals"></div>
+<div class="consent hidden" id="consent">
+  <div class="modal-card">
+    <div class="sheet-grip"></div>
+    <div class="seal-big">承</div>
+    <h2>Условия использования</h2>
+    <p class="sub">Судоку · Дзэн не собирает персональных данных.<br>Прогресс хранится только на вашем устройстве.</p>
+    <div class="consent-links">
+      <a class="consent-link" href="docs/agreement.html" target="_blank" rel="noopener">Пользовательское соглашение</a>
+      <a class="consent-link" href="docs/privacy.html" target="_blank" rel="noopener">Политика конфиденциальности</a>
+    </div>
+    <p class="consent-note" id="consentNote"></p>
+    <button class="btn btn-primary" id="btnConsentOk">Принять и играть</button>
+    <button class="btn btn-ghost" id="btnConsentNo">Отказаться</button>
+  </div>
+</div>
 <div id="rotate-lock">
   <div class="seal-big">縦</div>
   <p>Телефон лежит набок — сад тоже.<br>Верните его вертикально, чтобы продолжить созерцание.</p>
@@ -75,12 +91,13 @@
 
 <!-- Порядок подключения важен: game → interface → effects → main -->
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-<script src="js/game.js?v=m3"></script>
-<script src="js/interface.js?v=m3"></script>
-<script src="js/effects.js?v=m3"></script>
-<script src="js/generator.js?v=m3"></script>
-<script src="js/platform.js?v=m3"></script>
-<script src="js/save.js?v=m3"></script>
-<script src="js/main.js?v=m3"></script>
+<script src="js/game.js"></script>
+<script src="js/interface.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/generator.js"></script>
+<script src="js/platform.js"></script>
+<script src="js/save.js"></script>
+<script src="js/consent.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

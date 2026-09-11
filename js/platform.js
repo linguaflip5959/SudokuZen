@@ -1,6 +1,6 @@
 /* platform.js — VK Bridge, rewarded-реклама, дневной анлок Сложной, Worker с прегеном */
 
-const DEBUG_REWARD=true; /* ⚠️ true = реклама «успешна» мгновенно. ТОЛЬКО для локальной проверки, перед публикацией вернуть false! */
+const DEBUG_REWARD=false; /* ⚠️ true = реклама «успешна» мгновенно. ТОЛЬКО для локальной проверки, перед публикацией вернуть false! */
 
 /* ---------- VK Bridge ---------- */
 function initPlatform(){

@@ -1,4 +1,7 @@
-/* main.js — точка входа: платформа, замок Сложной (учитывает сейв), продолжение партии или новая на Лёгкой */
+/* main.js — точка входа: платформа → согласие (первый вход) → партия или новая игра */
 initPlatform();
-if(!resumeGame()) newGame('easy');
-updateHardLock();
+const startApp=function(){
+  if(!resumeGame()) newGame('easy');
+  updateHardLock();
+};
+if(hasConsent()) startApp(); else showConsent(startApp);

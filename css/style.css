@@ -249,3 +249,11 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 @media (orientation:landscape) and (max-height:500px){
   #rotate-lock.active{display:flex;}
 }
+
+/* ---------- согласие при первом входе ---------- */
+.consent{position:fixed;inset:0;z-index:100;display:flex;align-items:flex-end;justify-content:center;background:rgba(64,56,46,.55);backdrop-filter:blur(6px);}
+.consent.hidden{display:none;}
+.consent .modal-card{padding:22px 22px calc(22px + var(--safe-bot));}
+.consent-links{display:flex;flex-direction:column;gap:6px;margin:14px 0 4px;}
+.consent-link{color:var(--amber);font-size:13.5px;text-decoration:underline;cursor:pointer;}
+.consent-note{min-height:18px;font-size:11.5px;font-style:italic;color:var(--rust);text-align:center;margin:6px 0 8px;}
