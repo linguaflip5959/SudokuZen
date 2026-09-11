@@ -66,7 +66,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 /* ---------- сложность ---------- */
 .diff-row{display:flex;gap:8px;flex:none;}
 .diff{
-  flex:1;padding:8px 0;border-radius:999px;border:1px solid var(--line);
+  flex:1;padding:6px 0;border-radius:999px;border:1px solid var(--line);
   background:rgba(251,246,236,.88);color:var(--ink);font-family:inherit;font-size:13px;
   cursor:pointer;transition:.2s;
 }
@@ -119,8 +119,10 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 /* ---------- нижняя панель ---------- */
 .controls{flex:none;display:flex;flex-direction:column;gap:9px;}
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-@media (min-width:481px){
-  .tools{grid-template-columns:repeat(6,1fr);}
+/* ---------- телефоны: два ряда кнопок — пересчитанный запас высоты ---------- */
+@media (max-width:480px){
+  .board{--cell:min(9.6vw, 40px, calc((100dvh - 400px)/9));}
+  .board.board12{--cell:min(7.2vw, 38px, calc((100dvh - 441px)/12));}
 }
 .tools .tool{
   position:relative;padding:9px 2px;border-radius:14px;border:1px solid var(--line);
@@ -191,7 +193,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
   --cell:min(7.2vw, 38px, calc((100dvh - 390px)/12));
   grid-template-columns:repeat(12,var(--cell));
 }
-.board12 .val{font-size:calc(var(--cell)*.55);}
+.board12 .val{font-size:calc(var(--cell)*.5);}
 /* толстые линии: блоки 3 столбца × 4 строки */
 .board12 .cell[data-c="8"]{border-right:2px solid var(--ink);}
 .board12 .cell[data-c="11"]{border-right:none;}
