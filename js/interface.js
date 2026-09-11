@@ -190,7 +190,9 @@ boardEl.addEventListener(
 function updateHardLock(){
   const btn=document.querySelector('.diff[data-diff="hard"]');
   if(!btn) return;
-  const locked=!isHardUnlockedToday();
+  const d=loadSave();
+  const hardSaved = d && d.diff==='hard';
+  const locked=!hardSaved && !isHardUnlockedToday();
   btn.classList.toggle('locked', locked);
   btn.innerHTML = locked ? 'Сложная <span class="vk-ico">▶</span>' : 'Сложная · 12×12';
 }

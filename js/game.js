@@ -150,6 +150,10 @@ function endGame(win){
 /* ================= новая игра ================= */
 function newGame(d){
   diff=d;
+  if(d==='hard' && !isHardUnlockedToday() && !loadSave()){
+    rewardAd(function(){ unlockHard(); newGame('hard'); });
+    return;
+  }
   const m=MODES[d];
   N=m.N; BW=m.BW; BH=m.BH; TOTAL=N*N; lives=m.lives;
   document.querySelectorAll('.diff').forEach(b=>b.classList.toggle('active', b.dataset.diff===d));
