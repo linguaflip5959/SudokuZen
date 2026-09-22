@@ -14,9 +14,14 @@ function applyInsets(insets){
 function initPlatform(){
   if(typeof vkBridge==='undefined') return;
   try{
+    if(isVKClient()){
+      /* клиент ВК: резерв под нативный слой сверху, до всяких событий */
+      document.documentElement.style.setProperty('--safe-top', TOP_SAFE+'px');
+    }
     vkBridge.subscribe(function(e){
       if(e.detail.type==='VKWebAppUpdateConfig'){
-        applyInsets(e.detail.data && e.detail.data.insets);
+        const d=e.detail.data;
+        applyInsets(d && d.insets);
       }
     });
     vkBridge.send('VKWebAppInit', {});
