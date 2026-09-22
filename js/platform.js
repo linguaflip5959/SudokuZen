@@ -5,6 +5,7 @@ const DEBUG_REWARD=false; /* ⚠️ true = реклама «успешна» м�
 /* ---------- VK Bridge ---------- */
 /* служебные кнопки ВК (⋯ и ✕): применяем их отступы к CSS-переменным */
 function applyInsets(insets){
+  flashInfo('insets: ' + JSON.stringify(insets));
   if(!insets) return;
   const st=document.documentElement.style;
   if(typeof insets.top==='number'&&insets.top>0) st.setProperty('--safe-top', insets.top+'px');
