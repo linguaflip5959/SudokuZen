@@ -3,12 +3,11 @@
 const DEBUG_REWARD=false; /* ⚠️ true = реклама «успешна» мгновенно. ТОЛЬКО для локальной проверки, перед публикацией вернуть false! */
 
 /* резерв под нативный слой ВК: константа + различитель среды */
-const TOP_SAFE=44;   /* высота полосы служебных кнопок */
+const TOP_SAFE=64;   /* высота нативной полосы ВК — проверено вашим же Nonograms */
 function isVKClient(){
   try{
-    if(window.top===window.self) return false;              /* не в iframe — точно браузер */
-    const q=location.search;
-    return q.includes('api_id=')||q.includes('viewer_id='); /* параметры запуска из клиента ВК */
+    /* клиент ВК дописывает в URL параметры запуска — старые api_id/viewer_id или новые vk_* */
+    return /(^|[?&])(api_id|viewer_id|vk_app_id|vk_user_id|vk_platform)=/.test(location.search);
   }catch(err){ return true; }
 }
 
@@ -23,10 +22,9 @@ function applyInsets(insets){
 function initPlatform(){
   if(typeof vkBridge==='undefined') return;
   try{
-    if(isVKClient()){
-      /* клиент ВК: резерв под нативный слой сверху, до всяких событий */
-      document.documentElement.style.setProperty('--safe-top', TOP_SAFE+'px');
-    }
+    const vk=isVKClient();
+    if(vk){ document.documentElement.style.setProperty('--safe-top', TOP_SAFE+'px'); }
+    flashInfo(vk ? 'VK: отступ '+TOP_SAFE : 'браузер: без отступа'); /* ВРЕМЕННО — после победы удалить */
     vkBridge.subscribe(function(e){
       if(e.detail.type==='VKWebAppUpdateConfig'){
         const d=e.detail.data;
