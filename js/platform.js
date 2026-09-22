@@ -2,6 +2,16 @@
 
 const DEBUG_REWARD=false; /* ⚠️ true = реклама «успешна» мгновенно. ТОЛЬКО для локальной проверки, перед публикацией вернуть false! */
 
+/* резерв под нативный слой ВК: константа + различитель среды */
+const TOP_SAFE=44;   /* высота полосы служебных кнопок */
+function isVKClient(){
+  try{
+    if(window.top===window.self) return false;              /* не в iframe — точно браузер */
+    const q=location.search;
+    return q.includes('api_id=')||q.includes('viewer_id='); /* параметры запуска из клиента ВК */
+  }catch(err){ return true; }
+}
+
 /* ---------- VK Bridge ---------- */
 /* служебные кнопки ВК (⋯ и ✕): применяем их отступы к CSS-переменным */
 function applyInsets(insets){
