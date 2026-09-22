@@ -3,10 +3,23 @@
 const DEBUG_REWARD=false; /* ⚠️ true = реклама «успешна» мгновенно. ТОЛЬКО для локальной проверки, перед публикацией вернуть false! */
 
 /* ---------- VK Bridge ---------- */
+/* служебные кнопки ВК (⋯ и ✕): применяем их отступы к CSS-переменным */
+function applyInsets(insets){
+  if(!insets) return;
+  const st=document.documentElement.style;
+  if(typeof insets.top==='number'&&insets.top>0) st.setProperty('--safe-top', insets.top+'px');
+  if(typeof insets.bottom==='number'&&insets.bottom>0) st.setProperty('--safe-bot', insets.bottom+'px');
+}
 function initPlatform(){
-  if(typeof vkBridge!=='undefined'){
-    try{ vkBridge.send('VKWebAppInit', {}); }catch(err){}
-  }
+  if(typeof vkBridge==='undefined') return;
+  try{
+    vkBridge.subscribe(function(e){
+      if(e.detail.type==='VKWebAppUpdateConfig'){
+        applyInsets(e.detail.data && e.detail.data.insets);
+      }
+    });
+    vkBridge.send('VKWebAppInit', {});
+  }catch(err){}
 }
 
 /* ---------- rewarded-реклама ---------- */

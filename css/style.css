@@ -4,6 +4,7 @@
   --sage:#7d8f6f; --moss:#4e6e5d; --sakura:#d99a9a; --amber:#c98d4f; --rust:#b3543f;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bot: env(safe-area-inset-bottom, 0px);
+  --avail-h: calc(100dvh - var(--safe-top) - var(--safe-bot));
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 html,body{height:100%;overflow:hidden;}
@@ -82,12 +83,12 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
   max-width:100%;
 }
 .board{
-  --cell:min(9.6vw, 40px, calc((100dvh - 340px)/9));
+  --cell:min(9.6vw, 40px, calc((var(--avail-h) - 340px)/9));
   display:grid;grid-template-columns:repeat(9,var(--cell));grid-auto-rows:var(--cell);
   border:2px solid var(--ink);border-radius:6px;overflow:hidden;background:#fdf9ef;
   transition:opacity .3s;
 }
-@media (min-width:520px){ .board{--cell:min(9.6vw,40px,calc((100dvh - 300px)/9));} }
+@media (min-width:520px){ .board{--cell:min(9.6vw,40px,calc((var(--avail-h) - 300px)/9));} }
 .cell{
   display:grid;place-items:center;cursor:pointer;user-select:none;
   border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
@@ -121,8 +122,8 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
 /* ---------- телефоны: два ряда кнопок — пересчитанный запас высоты ---------- */
 @media (max-width:480px){
-  .board{--cell:min(9.6vw, 40px, calc((100dvh - 400px)/9));}
-  .board.board12{--cell:min(7.2vw, 38px, calc((100dvh - 441px)/12));}
+  .board{--cell:min(9.6vw, 40px, calc((var(--avail-h) - 400px)/9));}
+  .board.board12{--cell:min(7.2vw, 38px, calc((var(--avail-h) - 441px)/12));}
 }
 .tools .tool{
   position:relative;padding:9px 2px;border-radius:14px;border:1px solid var(--line);
@@ -190,7 +191,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 
 /* ---------- Сложная: поле 12×12 ---------- */
 .board.board12{
-  --cell:min(7.2vw, 38px, calc((100dvh - 390px)/12));
+  --cell:min(7.2vw, 38px, calc((var(--avail-h) - 390px)/12));
   grid-template-columns:repeat(12,var(--cell));
 }
 .board12 .val{font-size:calc(var(--cell)*.5);}
