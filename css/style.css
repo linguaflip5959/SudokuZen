@@ -48,8 +48,16 @@ body::after{
   gap:10px;max-width:520px;margin:0 auto;
 }
 
-/* ---------- шапка ---------- */
-header{display:flex;align-items:center;gap:10px;flex:none;}
+/* ---------- шапка: два этажа ---------- */
+header{
+  display:flex;flex-direction:column;gap:6px;flex:none;
+}
+.hrow{display:flex;align-items:center;gap:10px;}
+/* верхний этаж: печать и лого — на уровень нативных кнопок ВК */
+.hrow-top{margin-top:calc(var(--safe-top) * -1);}
+/* нижний этаж: настройки слева, статистика справа */
+.hrow-bot{justify-content:space-between;}
+
 .seal{
   width:40px;height:40px;flex:none;background:var(--rust);color:var(--paper);
   display:grid;place-items:center;border-radius:10px;transform:rotate(-4deg);
@@ -92,7 +100,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
   border:2px solid var(--ink);border-radius:6px;overflow:hidden;background:#fdf9ef;
   transition:opacity .3s;
 }
-@media (min-width:520px){ .board{--cell:min(9.6vw,40px,calc((var(--avail-h) - 300px)/9));} }
+@media (min-width:520px){ .board{--cell:min(9.6vw,40px,calc((var(--avail-h) - 340px)/9));} }
 .cell{
   display:grid;place-items:center;cursor:pointer;user-select:none;
   border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
@@ -151,7 +159,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
   box-shadow:0 3px 0 rgba(0,0,0,.35);
 }
 .num:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(64,56,46,.14);}
-.num .left{position:absolute;top:3px;right:5px;font-size:9px;font-weight:400;color:var(--ink-soft);}
+.num .left{position:absolute;top:3px;right:5px;font-size:9px;font-weight:600;color:var(--ink);}
 .num.done{opacity:.3;pointer-events:none;}
 .quote{
   font-size:12.5px;font-style:italic;color:#66594a;text-align:center;
