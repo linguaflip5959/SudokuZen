@@ -5,6 +5,10 @@
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bot: env(safe-area-inset-bottom, 0px);
   --avail-h: calc(100dvh - var(--safe-top) - var(--safe-bot));
+  --veil-a:rgba(246,239,227,.25);
+  --veil-b:rgba(246,239,227,.80);
+  --veil-c:rgba(246,239,227,.55);
+  --veil-d:rgba(240,230,212,.85);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 html,body{height:100%;overflow:hidden;}
@@ -19,8 +23,8 @@ body::before{
 body::after{
   content:''; position:fixed; inset:0; z-index:1; pointer-events:none;
   background:
-    radial-gradient(130% 80% at 50% 0%, rgba(246,239,227,.25), rgba(246,239,227,.80) 75%),
-    linear-gradient(rgba(246,239,227,.55), rgba(240,230,212,.85));
+    radial-gradient(130% 80% at 50% 0%, var(--veil-a), var(--veil-b) 75%),
+    linear-gradient(var(--veil-c), var(--veil-d));
 }
 #petals{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
 .petal{
@@ -57,7 +61,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .logo-txt p{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);}
 .stats{display:flex;gap:7px;}
 .stat{
-  background:rgba(251,246,236,.88);border:1px solid var(--line);border-radius:11px;
+  background:var(--panel);border:1px solid var(--line);border-radius:11px;
   padding:5px 10px;text-align:center;backdrop-filter:blur(4px);
 }
 .stat-label{display:block;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);}
@@ -68,7 +72,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .diff-row{display:flex;gap:8px;flex:none;}
 .diff{
   flex:1;padding:6px 0;border-radius:999px;border:1px solid var(--line);
-  background:rgba(251,246,236,.88);color:var(--ink);font-family:inherit;font-size:13px;
+  background:var(--panel);color:var(--ink);font-family:inherit;font-size:13px;
   cursor:pointer;transition:.2s;
 }
 .diff.active{background:var(--ink);color:var(--paper);border-color:var(--ink);box-shadow:0 4px 12px rgba(64,56,46,.25);}
@@ -78,8 +82,8 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .board-zone .numpad{width:100%;max-width:400px;}
 .board-wrap{
   position:relative;padding:8px;border-radius:16px;border:1px solid var(--line);
-  background:rgba(251,246,236,.93);backdrop-filter:blur(5px);
-  box-shadow:0 14px 34px rgba(64,56,46,.22);
+  background:var(--panel-strong);backdrop-filter:blur(5px);
+  box-shadow:0 14px 34px rgba(0,0,0,.45);
   max-width:100%;
 }
 .board{
@@ -127,9 +131,9 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 }
 .tools .tool{
   position:relative;padding:9px 2px;border-radius:14px;border:1px solid var(--line);
-  background:rgba(251,246,236,.93);color:var(--ink);font-family:inherit;font-size:11px;
+  background:var(--panel);color:var(--ink);font-family:inherit;font-size:11px;
   cursor:pointer;transition:.12s;display:flex;flex-direction:column;align-items:center;gap:2px;
-  box-shadow:0 3px 0 rgba(64,56,46,.14);
+  box-shadow:0 3px 0 rgba(0,0,0,.35);
 }
 .tool:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(64,56,46,.14);}
 .tool .ico{font-size:17px;line-height:1;}
@@ -142,9 +146,9 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .numpad{display:grid;grid-template-columns:repeat(9,1fr);gap:6px;}
 .num{
   position:relative;aspect-ratio:1/1.15;border-radius:13px;border:1px solid var(--line);
-  background:rgba(251,246,236,.95);color:var(--moss);font-family:inherit;
+  background:var(--panel-strong);color:var(--moss);font-family:inherit;
   font-size:min(6vw,26px);font-weight:600;cursor:pointer;transition:.12s;
-  box-shadow:0 3px 0 rgba(64,56,46,.14);
+  box-shadow:0 3px 0 rgba(0,0,0,.35);
 }
 .num:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(64,56,46,.14);}
 .num .left{position:absolute;top:3px;right:5px;font-size:9px;font-weight:400;color:var(--ink-soft);}
@@ -257,11 +261,10 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 
 /* ---------- M5: гамбургер и настройки ---------- */
 .hamb{
-  flex:none;height:48px;min-width:48px;padding:0 10px;border-radius:11px;border:1px solid var(--line);
-  background:rgba(251,246,236,.88);color:var(--ink);cursor:pointer;
+  flex:none;height:46px;min-width:46px;padding:0 10px;border-radius:11px;border:1px solid var(--line);
+  background:var(--panel);color:var(--ink);cursor:pointer;
   font-family:'Zen Old Mincho',serif;font-size:18px;line-height:1;
-  display:grid;place-items:center;transition:.12s;
-  align-self:center;
+  display:grid;place-items:center;transition:.12s;align-self:center;
 }
 .hamb:active{transform:translateY(2px);}
 
@@ -318,3 +321,30 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .diff{position:relative;}
 .btn{position:relative;}
 .diff .badge{top:-5px;right:-2px;min-width:16px;height:16px;font-size:9px;}
+
+
+/* ---------- тёмная тема: сумерки в саду ---------- */
+html[data-theme="dark"]{
+  --paper:#221f1a; --card:#2b2721; --ink:#cfc4ac;  --ink-soft:#8f8470;
+  --line:#3d382f; --line-soft:#332f27;
+  --panel:rgba(43,39,33,.88); --panel-strong:rgba(43,39,33,.93);
+  --moss:#9db08c; --amber:#d9a05b; --rust:#cf6b52;
+}
+html[data-theme="dark"] .quote{color:#a89a7f;}
+html[data-theme="dark"] body{background:#151310;}
+html[data-theme="dark"] body::before{
+  background:url('../img/bg_one_dark.jpg') center 30%/cover no-repeat;
+}
+
+html[data-theme="dark"] body::after{
+  content:''; position:fixed; inset:0; z-index:1; pointer-events:none;
+  --veil-a:rgba(21,19,16,.44);
+  --veil-b:rgba(21,19,16,.95);
+  --veil-c:rgba(21,19,16,.65);
+  --veil-d:rgba(26,23,19,.98);
+  background:
+    radial-gradient(130% 80% at 50% 0%, var(--veil-a), var(--veil-b) 75%),
+    linear-gradient(var(--veil-c), var(--veil-d));
+}
+html[data-theme="dark"] .board{background:#262218;box-shadow:inset 0 0 40px rgba(0,0,0,.3);}
+html[data-theme="dark"] .val{color:var(--moss);}

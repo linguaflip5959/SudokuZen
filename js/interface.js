@@ -227,6 +227,7 @@ function updateSettingsUI(){
   if(!s) return;
   document.getElementById('optSound').classList.toggle('on',soundOn());
   document.getElementById('optMusic').classList.toggle('on',musicOn());
+  document.getElementById('optTheme').classList.toggle('on', themeDark());
 }
 document.getElementById('btnMenu').addEventListener('click',()=>{
   buzz(10); updateSettingsUI();
@@ -252,3 +253,16 @@ document.getElementById('btnContinue').addEventListener('click',sfxTap);
 document.getElementById('btnMenu').addEventListener('click',sfxTap);
 document.getElementById('btnSettingsClose').addEventListener('click',sfxTap);
 document.querySelectorAll('.diff').forEach(b=>b.addEventListener('click',sfxTap));
+
+/* тема */
+const TKEY='zen-sudoku-theme';
+function themeDark(){ try{ return localStorage.getItem(TKEY)==='dark'; }catch(err){ return false; } }
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', themeDark()?'dark':'light');
+  updateSettingsUI();
+}
+document.getElementById('optTheme').addEventListener('click',()=>{
+  buzz(8);
+  try{ localStorage.setItem(TKEY, themeDark()?'light':'dark'); }catch(err){}
+  applyTheme();
+});

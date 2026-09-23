@@ -88,6 +88,7 @@ function startKoto(){
   if(!audioReady||kotoTimer) return;
   const note=function(){
     if(!musicOn()) return;
+    if(duckKoto) return;
     if(musicAudio&&!musicAudio.paused&&musicAudio.currentTime>0.05) return; /* mp3 заиграл — кото молчит */
     if(!AC) return;
     const t=AC.currentTime;
@@ -117,3 +118,14 @@ function toggleMusic(){
   if(musicOn()){ initAudio(); startMusic(); } else { stopMusic(); }
   updateSettingsUI();
 }
+
+/* приглушение на время рекламы: ролик ВК несёт свой звук */
+function duckMusic(on){
+  if(musicAudio){ musicAudio.muted=on; }
+  /* кото-фолбэк: на время рекламы прекращаем назначать новые ноты */
+  duckKoto=on;
+  if(on&&kotoTimer){ clearTimeout(kotoTimer); kotoTimer=null; }
+  if(!on&&musicOn()&&!musicAudio){ startKoto(); }
+  if(!on&&musicOn()&&musicAudio&&musicAudio.paused&&musicAudio.currentTime>0.05){ /* mp3 умер — кото вернётся */ startKoto(); }
+}
+let duckKoto=false;
