@@ -37,16 +37,16 @@ function inputNumber(n){
   if(noteMode){
     if(boardVals[idx]!==0) return;
     if(!notesArr[idx].has(n) && notesArr[idx].size>=4){ buzz(20); return; }
-    pushUndo(); buzz(8);
+    pushUndo(); buzz(8); sfxTap();
     if(notesArr[idx].has(n)) notesArr[idx].delete(n); else notesArr[idx].add(n);
     render(); saveGame(); return;
   }
   pushUndo();
   boardVals[idx]=n; notesArr[idx].clear();
   cellEls[idx].dataset.pop='1';
-  if(n===solution[idx]){ clearPeerNotes(idx,n); buzz(12); }
+  if(n===solution[idx]){ clearPeerNotes(idx,n); buzz(12); sfxPlace(); }
   else{
-    mistakes++; updateMistakes(); buzz([30,40,30]);
+    mistakes++; updateMistakes(); buzz([30,40,30]); sfxError();
     if(mistakes>=lives){ render(); updateNumpad(); endGame(false); return; }
   }
   render(); updateNumpad(); saveGame(); checkWin();
@@ -54,7 +54,7 @@ function inputNumber(n){
 function eraseCell(){
   if(!playing||selected<0||givenArr[selected]) return;
   if(boardVals[selected]===0 && notesArr[selected].size===0) return;
-  pushUndo(); buzz(8);
+  pushUndo(); buzz(8); sfxTap();
   boardVals[selected]=0; notesArr[selected].clear();
   render(); updateNumpad(); saveGame();
 }
@@ -62,7 +62,7 @@ function undoMove(){
   if(!playing||undoStack.length===0) return;
   const st=undoStack.pop();
   boardVals=st.b; notesArr=st.n;
-  buzz(8); render(); updateNumpad(); saveGame();
+  buzz(8); sfxTap(); render(); updateNumpad(); saveGame();
 }
 function useHint(){
   if(!playing) return;
@@ -71,7 +71,7 @@ function useHint(){
   if(selected>=0 && !givenArr[selected] && boardVals[selected]!==solution[selected]) idx=selected;
   else idx=boardVals.findIndex((v,i)=>v!==solution[i]);
   if(idx<0) return;
-  pushUndo(); buzz(15);
+  pushUndo(); buzz(15); sfxTap();
   hintsLeft--; hintBadge.textContent=hintsLeft;
   if(hintsLeft===0) hintBadge.textContent='+3 ▶';
   boardVals[idx]=solution[idx]; notesArr[idx].clear();
@@ -88,7 +88,7 @@ function askHints(){
 }
 function solitude(){
   if(!playing||usedSolo) return;
-  pushUndo();
+  pushUndo(); sfxTap();
   let found=0;
   for(let i=0;i<TOTAL;i++){
     if(givenArr[i]||boardVals[i]!==0) continue;
@@ -124,7 +124,7 @@ function continueGame(){
   playing=true;
   startTimer(seconds);
   saveGame();
-  buzz(12);
+  saveGame(); sfxPlace(); buzz(12);
 }
 function checkWin(){
   for(let i=0;i<TOTAL;i++){ if(boardVals[i]!==solution[i]) return; }
@@ -133,6 +133,7 @@ function checkWin(){
 function endGame(win){
   playing=false;
   clearSave();
+  if(win) sfxWin();
   if(timerId) clearInterval(timerId);
   if(win) buzz([20,60,20,60,40]); else buzz([80,60,80]);
   document.getElementById('modalSeal').textContent = win ? '完' : '雨';

@@ -1,7 +1,4 @@
-/* main.js — точка входа: платформа → согласие (первый вход) → партия или новая игра */
+/* main.js — точка входа */
 initPlatform();
-const startApp=function(){
-  if(!resumeGame()) newGame('easy');
-  updateHardLock();
-};
-if(hasConsent()) startApp(); else showConsent(startApp);
+if(!resumeGame()) newGame('easy');
+updateHardLock();

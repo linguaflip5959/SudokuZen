@@ -43,6 +43,7 @@ function buildNumpad() {
     b.dataset.n = n;
     b.innerHTML = n + '<span class="left">' + N + "</span>";
     b.addEventListener("click", () => inputNumber(n));
+    b.addEventListener('click',sfxTap);
     numpadEl.appendChild(b);
     numBtns.push(b);
   }
@@ -190,11 +191,11 @@ boardEl.addEventListener(
 function updateHardLock(){
   const btn=document.querySelector('.diff[data-diff="hard"]');
   if(!btn) return;
-  const d=loadSave();
-  const hardSaved = d && d.diff==='hard';
-  const locked=!hardSaved && !isHardUnlockedToday();
+  const locked=!isHardUnlockedToday();
   btn.classList.toggle('locked', locked);
-  btn.innerHTML = locked ? 'Сложная <span class="vk-ico">▶</span>' : 'Сложная · 12×12';
+  btn.innerHTML = locked
+    ? 'Сложная<span class="badge">▶</span>'
+    : 'Сложная · 12×12';
 }
 
 /* Одиночки и Продолжить — за просмотр */
@@ -219,3 +220,35 @@ document.getElementById('btnSolo').addEventListener('click',function(){
 document.getElementById('btnContinue').addEventListener('click',function(){
   rewardAd(continueGame);
 });
+
+/* ================= настройки ================= */
+function updateSettingsUI(){
+  const s=document.getElementById('settings');
+  if(!s) return;
+  document.getElementById('optSound').classList.toggle('on',soundOn());
+  document.getElementById('optMusic').classList.toggle('on',musicOn());
+}
+document.getElementById('btnMenu').addEventListener('click',()=>{
+  buzz(10); updateSettingsUI();
+  document.getElementById('settings').classList.remove('hidden');
+});
+document.getElementById('btnSettingsClose').addEventListener('click',()=>{
+  buzz(10); document.getElementById('settings').classList.add('hidden');
+});
+document.getElementById('optSound').addEventListener('click',()=>{ buzz(8); toggleSound(); sfxTap(); });
+document.getElementById('optMusic').addEventListener('click',()=>{ buzz(8); toggleMusic(); });
+
+/* щелчки на кнопки */
+document.getElementById('btnNotes').addEventListener('click',sfxTap);
+document.getElementById('btnErase').addEventListener('click',sfxTap);
+document.getElementById('btnUndo').addEventListener('click',sfxTap);
+document.getElementById('btnHint').addEventListener('click',sfxTap);
+document.getElementById('btnSolo').addEventListener('click',sfxTap);
+document.getElementById('btnSave').addEventListener('click',sfxTap);
+
+document.getElementById('btnAgain').addEventListener('click',sfxTap);
+document.getElementById('btnClose').addEventListener('click',sfxTap);
+document.getElementById('btnContinue').addEventListener('click',sfxTap);
+document.getElementById('btnMenu').addEventListener('click',sfxTap);
+document.getElementById('btnSettingsClose').addEventListener('click',sfxTap);
+document.querySelectorAll('.diff').forEach(b=>b.addEventListener('click',sfxTap));

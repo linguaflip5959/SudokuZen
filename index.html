@@ -39,9 +39,10 @@
       <h1>Судоку · Дзэн</h1>
       <p>lo-fi · вк игры</p>
     </div>
-    <div class="stats">
       <div class="stat"><span class="stat-label">время</span><b id="timer">00:00</b></div>
       <div class="stat"><span class="stat-label">ошибки</span><b id="mistakes">○○○</b></div>
+      <button class="hamb" id="btnMenu" aria-label="Настройки">設</button> <!-- Hamburger -->
+    <div class="stats">
     </div>
   </header>
 
@@ -66,7 +67,7 @@
         <button class="tool" id="btnErase"><span class="ico">⌫</span>Стереть</button>
         <button class="tool" id="btnUndo"><span class="ico">↺</span>Отмена</button>
         <button class="tool" id="btnHint"><span class="ico">✦</span>Подсказка<span class="badge" id="hintBadge">3</span></button>
-        <button class="tool" id="btnSolo"><span class="ico">独</span>Одиночки</button>
+        <button class="tool" id="btnSolo"><span class="ico">独</span>Одиночки<span class="badge">▶</span></button>
         <button class="tool" id="btnSave"><span class="ico">書</span>Сберечь</button>
       </div>
   </div>
@@ -83,21 +84,33 @@
       <div class="stat"><span class="stat-label">ошибки</span><b id="mMist">0</b></div>
       <div class="stat"><span class="stat-label">сложность</span><b id="mDiff">Средняя</b></div>
     </div>
-    <button class="btn btn-primary gone" id="btnContinue">Продолжить · +2 жизни</button>
+    <button class="btn btn-primary gone" id="btnContinue">Продолжить · +2 жизни<span class="badge">▶</span></button>
     <button class="btn btn-primary" id="btnAgain">Новая игра</button>
     <button class="btn btn-ghost" id="btnClose">остаться созерцать</button>
   </div>
 </div>
 
+<div class="modal hidden" id="settings"> <!-- Hamburger -->
+  <div class="modal-card">
+    <div class="sheet-grip"></div>
+    <div class="seal-big">設</div>
+    <h2>Настройки</h2>
+    <div class="opt" id="optSound"><span>Звук</span><i class="opt-dot"></i></div>
+    <div class="opt" id="optMusic"><span>Музыка</span><i class="opt-dot"></i></div>
+    <button class="btn btn-primary" id="btnSettingsClose">Готово</button>
+  </div>
+</div>
+
 <!-- Порядок подключения важен: game → interface → effects → main -->
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
-<script src="js/game.js?v=9"></script>
-<script src="js/interface.js?v=9"></script>
-<script src="js/effects.js?v=9"></script>
-<script src="js/generator.js?v=9"></script>
-<script src="js/platform.js?v=9"></script>
-<script src="js/save.js?v=9"></script>
-<script src="js/consent.js?v=9"></script>
-<script src="js/main.js?v=9"></script>
+<script src="js/game.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/interface.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/generator.js"></script>
+<script src="js/platform.js"></script>
+<script src="js/save.js"></script>
+<script src="js/consent.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

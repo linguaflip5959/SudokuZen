@@ -180,6 +180,7 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
   width:100%;padding:14px;border-radius:16px;border:none;cursor:pointer;font-family:inherit;
   font-size:15px;letter-spacing:.05em;transition:.12s;
 }
+.btn .badge{top:-6px;right:-4px;font-size:10px;min-width:19px;height:19px;}
 .btn-primary{background:var(--ink);color:var(--paper);box-shadow:0 8px 20px rgba(64,56,46,.3);}
 .btn-primary:active{transform:translateY(2px);}
 .btn-ghost{background:transparent;color:var(--ink-soft);margin-top:8px;font-size:13px;}
@@ -220,12 +221,10 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .notes i:nth-child(4){bottom:2px;right:2px;}
 
 /* ---------- сейвы: пятая кнопка ---------- */
-#btnSave .ico{font-family:'Zen Old Mincho',serif;}
 @media (max-width:340px){ .tool{font-size:10px;} }
 
 /* ---------- M3: реклама, замок, Одиночки, Продолжить ---------- */
 .gone{display:none!important;}
-#btnSolo .ico{font-family:'Zen Old Mincho',serif;}
 .diff.locked{opacity:.8;}
 #btnContinue{margin-top:0;}
 #btnContinue:not(.gone) + #btnAgain{margin-top:8px;}
@@ -239,9 +238,6 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 @media (max-width:700px){
   body::before{ background-position:right 30%; }
 }
-
-/* ▶ = награда за просмотр, в цвет бейджа подсказок */
-.vk-ico{color:var(--amber);font-size:11px;}
 
 /* ---------- ландшафт: врата закрыты ---------- */
 #rotate-lock{position:fixed;inset:0;z-index:99;display:none;flex-direction:column;gap:16px;align-items:center;justify-content:center;text-align:center;padding:24px;background:rgba(231,220,198,.97);}
@@ -258,3 +254,67 @@ header{display:flex;align-items:center;gap:10px;flex:none;}
 .consent-links{display:flex;flex-direction:column;gap:6px;margin:14px 0 4px;}
 .consent-link{color:var(--amber);font-size:13.5px;text-decoration:underline;cursor:pointer;}
 .consent-note{min-height:18px;font-size:11.5px;font-style:italic;color:var(--rust);text-align:center;margin:6px 0 8px;}
+
+/* ---------- M5: гамбургер и настройки ---------- */
+.hamb{
+  flex:none;height:48px;min-width:48px;padding:0 10px;border-radius:11px;border:1px solid var(--line);
+  background:rgba(251,246,236,.88);color:var(--ink);cursor:pointer;
+  font-family:'Zen Old Mincho',serif;font-size:18px;line-height:1;
+  display:grid;place-items:center;transition:.12s;
+  align-self:center;
+}
+.hamb:active{transform:translateY(2px);}
+
+.opt{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 6px;border-bottom:1px solid var(--line-soft);cursor:pointer;
+  font-size:15px;
+}
+.opt:last-of-type{border-bottom:none;}
+.opt-dot{
+  width:34px;height:20px;border-radius:99px;background:var(--line);
+  position:relative;transition:.2s;flex:none;
+}
+.opt-dot::after{
+  content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;
+  border-radius:50%;background:var(--paper);transition:.2s;
+  box-shadow:0 1px 3px rgba(64,56,46,.3);
+}
+.opt.on .opt-dot{background:var(--sage);}
+.opt.on .opt-dot::after{left:16px;}
+
+/* ---------- единый стиль тулз: иконка-печать + подпись ---------- */
+.tool .ico-seal{
+  width:26px;height:26px;border-radius:8px;
+  background:var(--rust);color:var(--paper);
+  display:grid;place-items:center;
+  font-family:'Zen Old Mincho',serif;font-size:15px;line-height:1;
+  transform:rotate(-4deg);
+  box-shadow:inset 0 0 0 1.5px rgba(246,239,227,.35);
+  margin-bottom:3px;
+}
+
+/* ---------- ▶ «награда за просмотр» — на углу кнопки, как бейдж ---------- */
+.tool .vk-ico{
+  position:absolute;top:4px;right:5px;
+  color:var(--amber);font-size:10px;line-height:1;
+}
+.btn-primary .vk-ico{position:absolute;top:12px;right:14px;}
+.btn .vk-ico{margin-left:6px;}
+
+
+
+/* ---------- единый стандарт бейджей ---------- */
+.badge{
+  position:absolute;
+  top:-6px;right:-4px;
+  min-width:19px;height:19px;padding:0 5px;border-radius:999px;
+  background:var(--amber);color:#fff;font-size:10px;
+  display:grid;place-items:center;
+  box-shadow:0 3px 8px rgba(201,141,79,.45);
+}
+/* бейдж на кнопке сложности: якорим к самой кнопке */
+.badge .vk-ico, .badge{ text-align:center; }
+.diff{position:relative;}
+.btn{position:relative;}
+.diff .badge{top:-5px;right:-2px;min-width:16px;height:16px;font-size:9px;}
