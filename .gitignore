@@ -1,0 +1,7 @@
+fonts-src/
+make_fonts.py
+audio/
+node_modules/
+.DS_Store
+Thumbs.db
+icon.html
